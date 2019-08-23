@@ -18,11 +18,11 @@ package org.springframework.security.oauth2.client.registration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.util.Assert;
-import org.springframework.util.ConcurrentReferenceHashMap;
 
 import reactor.core.publisher.Mono;
 
@@ -46,7 +46,7 @@ public final class InMemoryReactiveClientRegistrationRepository
 	 */
 	public InMemoryReactiveClientRegistrationRepository(ClientRegistration... registrations) {
 		Assert.notEmpty(registrations, "registrations cannot be empty");
-		this.clientIdToClientRegistration = new ConcurrentReferenceHashMap<>();
+		this.clientIdToClientRegistration = new ConcurrentHashMap<>();
 		for (ClientRegistration registration : registrations) {
 			Assert.notNull(registration, "registrations cannot contain null values");
 			this.clientIdToClientRegistration.put(registration.getRegistrationId(), registration);
